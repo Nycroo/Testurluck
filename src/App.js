@@ -2,6 +2,7 @@ import randomColor from "randomcolor";
 import { useEffect, useState } from "react";
 import "./App.css";
 import Box from "./components/Box";
+import { BsMoon, BsSun } from "react-icons/bs";
 
 const getRandomArbitrary = (min, max) => {
   // return Math.random() * (max - min) + min;
@@ -12,11 +13,14 @@ const App = () => {
   const word = "Test jur lak";
   const lvlup = "Dawaj więcej pecha!";
   const lvldown = "Zabierz tego pecha!";
+  const darkModeColor = "#1A202C";
+  const lightModeColor = "#FFEBEB";
   const [kartunList, setKartunList] = useState([false, false]);
-  const [colorMode, setColorMode] = useState("#1A202C");
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
   const switchColorMode = () => {
-    if (colorMode === "#1A202C") setColorMode("#B8B8B8");
-    else setColorMode("#1A202C");
+    if (isDarkMode) setIsDarkMode(false);
+    else setIsDarkMode(true);
   };
 
   const setWinner = (length) => {
@@ -25,9 +29,12 @@ const App = () => {
       x.map((el, index) => (index === number ? true : false))
     );
   };
-  const setLvlUp = () => {};
 
-  useEffect(() => setWinner(kartunList.length), []);
+  useEffect(
+    () => setWinner(kartunList.length),
+    // eslint-disable-next-line
+    []
+  );
 
   return (
     <div
@@ -36,10 +43,29 @@ const App = () => {
         flexDirection: "column",
         alignItems: "center",
         height: "100vh",
-        backgroundColor: colorMode,
+        backgroundColor: isDarkMode ? darkModeColor : lightModeColor,
       }}
     >
-      <div></div>
+      <div
+        style={{
+          alignSelf: "flex-end",
+          padding: "8px",
+        }}
+      >
+        <div
+          onClick={switchColorMode}
+          style={{
+            cursor: "pointer",
+            borderRadius: "30px",
+          }}
+        >
+          {isDarkMode ? (
+            <BsSun size="40px" color="yellow" />
+          ) : (
+            <BsMoon size="40px" />
+          )}
+        </div>
+      </div>
       <div
         onClick={() => setWinner(kartunList.length)}
         style={{

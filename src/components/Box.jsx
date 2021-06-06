@@ -6,7 +6,9 @@ const Box = (props) => {
     useEffect(() => {
       setText("To je kartun");
       setColor(props.backgroundColor);
-    }, [])
+    }, 
+        // eslint-disable-next-line
+    [])
   
     return (
       <div
